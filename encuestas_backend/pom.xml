@@ -47,7 +47,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <exec.mainClass>cr.ac.una.estudiantes.EjemploEstudiantes</exec.mainClass>
+        <exec.mainClass>cr.ac.una.encuestas.EjemploEncuestas</exec.mainClass>
     </properties>
     <name>encuestas_backend-1.0.0</name>
 </project>
