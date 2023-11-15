@@ -2,8 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cr.ac.una.encuestas.entidades;
-
+package cr.ac.una.encuestas.entidades.logic;
+import cr.ac.una.encuestas.entidades.logic.Encuesta;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.DataSourceConnectionSource;
@@ -22,9 +22,17 @@ import javax.sql.DataSource;
  *
  * @author jeffr
  */
-public class GestorEncuestas {
+public class GestorRespuestasAbiertas {
+    private static GestorRespuestasAbiertas instancia = null;
 
-    private GestorEncuestas() {
+    private DataSource bd = null;
+    private Dao<RespuestaAbierta, Integer> respuestasAbiertasDAO;
+
+    @XmlElementWrapper(name = "respuestas_abiertas")
+    @XmlElement(name = "respuesta_abierta")
+    private List<RespuestaAbierta> respuestasAbiertas = new ArrayList<>();
+
+    private GestorRespuestasAbiertas() {
         try {
             // Configuración de la base de datos
             InitialContext ctx = new InitialContext();
@@ -44,56 +52,39 @@ public class GestorEncuestas {
 
             System.out.println("Usando el manejador JDBC para acceder a la base de datos..");
         }
-
-        try {
-            String url = null;
-            if (bd != null) {
-                url = bd.getConnection().getMetaData().getURL();
-                System.out.printf("Origen de datos: %s%n", url);
-            } else {
-                System.err.println("No se pudo establecer el origen de datos.");
-            }
-            System.out.println();
-
-            DataSourceConnectionSource connectionSource
-                    = new DataSourceConnectionSource(bd, url);
-            encuestaDAO = DaoManager.createDao(connectionSource, Encuesta.class);
-        } catch (SQLException ex) {
-            System.err.printf("Excepción: '%s'%n", ex.getMessage());
-        }
     }
 
-    public static GestorEncuestas obtenerInstancia() {
+    public static GestorRespuestasAbiertas obtenerInstancia() {
         if (instancia == null) {
-            instancia = new GestorEncuestas();
+            instancia = new GestorRespuestasAbiertas();
         }
         return instancia;
     }
 
-    public int agregar(Encuesta nuevaEncuesta) throws SQLException {
-        return encuestaDAO.create(nuevaEncuesta);
+    public int agregar(RespuestaAbierta nuevaRespuesta) throws SQLException {
+        return respuestasAbiertasDAO.create(nuevaRespuesta);
     }
 
-    public Encuesta recuperar(int id) throws SQLException {
-        return encuestaDAO.queryForId(id);
+    public RespuestaAbierta recuperar(int id) throws SQLException {
+        return respuestasAbiertasDAO.queryForId(id);
     }
 
-    public int actualizar(Encuesta encuesta) throws SQLException {
-        return encuestaDAO.update(encuesta);
+    public int actualizar(RespuestaAbierta respuestaAbierta) throws SQLException {
+        return respuestasAbiertasDAO.update(respuestaAbierta);
     }
 
     public int eliminar(int id) throws SQLException {
-        return encuestaDAO.deleteById(id);
+        return respuestasAbiertasDAO.deleteById(id);
     }
 
-    public List<Encuesta> listarTodos() throws SQLException {
-        return encuestaDAO.queryForAll();
+    public List<RespuestaAbierta> listarTodos() throws SQLException {
+        return respuestasAbiertasDAO.queryForAll();
     }
 
     public void actualizar() {
-        encuestas.clear();
+        respuestasAbiertas.clear();
         try {
-            encuestas.addAll(listarTodos());
+            respuestasAbiertas.addAll(listarTodos());
         } catch (SQLException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
@@ -103,19 +94,10 @@ public class GestorEncuestas {
     public String toString() {
         StringBuilder result = new StringBuilder("{");
         actualizar();
-        for (Encuesta e : encuestas) {
-            result.append(String.format("\n\t%s,", e));
+        for (RespuestaAbierta ra : respuestasAbiertas) {
+            result.append(String.format("\n\t%s,", ra));
         }
         result.append("\n}");
         return result.toString();
     }
-
-    private static GestorEncuestas instancia = null;
-
-    private DataSource bd = null;
-    private Dao<Encuesta, Integer> encuestaDAO;
-
-    @XmlElementWrapper(name = "encuestas")
-    @XmlElement(name = "encuesta")
-    private List<Encuesta> encuestas = new ArrayList<>();
 }

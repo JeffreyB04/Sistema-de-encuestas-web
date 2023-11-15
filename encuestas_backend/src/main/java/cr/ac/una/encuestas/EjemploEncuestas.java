@@ -4,8 +4,8 @@
  */
 package cr.ac.una.encuestas;
 
-import cr.ac.una.encuestas.entidades.Encuesta;
-import cr.ac.una.encuestas.entidades.GestorEncuestas;
+import cr.ac.una.encuestas.entidades.logic.Encuesta;
+import cr.ac.una.encuestas.entidades.logic.GestorEncuestas;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

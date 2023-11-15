@@ -1,5 +1,10 @@
-package cr.ac.una.encuestas.entidades;
 /*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package cr.ac.una.encuestas.entidades.logic;
+
+import cr.ac.una.encuestas.entidades.logic.Encuesta;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.DataSourceConnectionSource;
@@ -14,14 +19,17 @@ import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+/**
+ *
+ * @author jeffr
+ */
+public class GestorEncuestas {
 
-@XmlRootElement(name = "lista_estudiantes")
-public class GestorEstudiantes implements Serializable {
-
-    private GestorEstudiantes() {
+    private GestorEncuestas() {
         try {
+            // Configuración de la base de datos
             InitialContext ctx = new InitialContext();
-            bd = (DataSource) ctx.lookup("jdbc/bd_estudiantes");
+            bd = (DataSource) ctx.lookup("jdbc/EncuestasDB");
             System.out.println("Usando JNDI para acceder a la base de datos..");
 
         } catch (NamingException | NullPointerException ex) {
@@ -31,7 +39,7 @@ public class GestorEstudiantes implements Serializable {
             MysqlDataSource mds = (MysqlDataSource) bd;
             mds.setServerName("localhost");
             mds.setPortNumber(3306);
-            mds.setDatabaseName("bd_estudiantes");
+            mds.setDatabaseName("EncuestasDB");
             mds.setUser("root");
             mds.setPassword("root");
 
@@ -50,43 +58,43 @@ public class GestorEstudiantes implements Serializable {
 
             DataSourceConnectionSource connectionSource
                     = new DataSourceConnectionSource(bd, url);
-            estudianteDAO = DaoManager.createDao(connectionSource, Estudiante.class);
+            encuestaDAO = DaoManager.createDao(connectionSource, Encuesta.class);
         } catch (SQLException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
     }
 
-    public static GestorEstudiantes obtenerInstancia() {
+    public static GestorEncuestas obtenerInstancia() {
         if (instancia == null) {
-            instancia = new GestorEstudiantes();
+            instancia = new GestorEncuestas();
         }
         return instancia;
     }
 
-    public int agregar(Estudiante nuevo) throws SQLException {
-        return estudianteDAO.create(nuevo);
+    public int agregar(Encuesta nuevaEncuesta) throws SQLException {
+        return encuestaDAO.create(nuevaEncuesta);
     }
 
-    public Estudiante recuperar(String id) throws SQLException {
-        return estudianteDAO.queryForId(id);
+    public Encuesta recuperar(int id) throws SQLException {
+        return encuestaDAO.queryForId(id);
     }
 
-    public int actualizar(Estudiante estudiante) throws SQLException {
-        return estudianteDAO.update(estudiante);
+    public int actualizar(Encuesta encuesta) throws SQLException {
+        return encuestaDAO.update(encuesta);
     }
 
-    public int eliminar(String id) throws SQLException {
-        return estudianteDAO.deleteById(id);
+    public int eliminar(int id) throws SQLException {
+        return encuestaDAO.deleteById(id);
     }
 
-    public List<Estudiante> listarTodos() throws SQLException {
-        return estudianteDAO.queryForAll();
+    public List<Encuesta> listarTodos() throws SQLException {
+        return encuestaDAO.queryForAll();
     }
 
     public void actualizar() {
-        estudiantes.clear();
+        encuestas.clear();
         try {
-            estudiantes.addAll(listarTodos());
+            encuestas.addAll(listarTodos());
         } catch (SQLException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
@@ -94,22 +102,21 @@ public class GestorEstudiantes implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder r = new StringBuilder("{");
+        StringBuilder result = new StringBuilder("{");
         actualizar();
-        for (Estudiante e : estudiantes) {
-            r.append(String.format("\n\t%s,", e));
+        for (Encuesta e : encuestas) {
+            result.append(String.format("\n\t%s,", e));
         }
-        r.append("\n}");
-        return r.toString();
+        result.append("\n}");
+        return result.toString();
     }
 
-    private static GestorEstudiantes instancia = null;
+    private static GestorEncuestas instancia = null;
 
     private DataSource bd = null;
-    private Dao<Estudiante, String> estudianteDAO;
+    private Dao<Encuesta, Integer> encuestaDAO;
 
-    @XmlElementWrapper(name = "estudiantes")
-    @XmlElement(name = "estudiante")
-    private List<Estudiante> estudiantes = new ArrayList<>();
+    @XmlElementWrapper(name = "encuestas")
+    @XmlElement(name = "encuesta")
+    private List<Encuesta> encuestas = new ArrayList<>();
 }
-*/

@@ -1,5 +1,9 @@
-package cr.ac.una.encuestas.entidades;
 /*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package cr.ac.una.encuestas.entidades.logic;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import cr.ac.una.util.conversion.xml.SqlDateAdapter;
@@ -16,25 +20,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @XmlType
-@DatabaseTable(tableName = "estudiante")
-public class Estudiante implements Serializable {
+@DatabaseTable(tableName = "Usuario")
+public class Usuario {
 
     @Getter
     @Setter
     @DatabaseField(id = true)
-    private String id;
-    @Getter
-    @Setter
-    @DatabaseField
-    private String apellido1;
-    @Getter
-    @Setter
-    @DatabaseField
-    private String apellido2;
-    @Getter
-    @Setter
-    @DatabaseField
-    private String nombre;
-
+    private String cedula;
 }
-*/
+

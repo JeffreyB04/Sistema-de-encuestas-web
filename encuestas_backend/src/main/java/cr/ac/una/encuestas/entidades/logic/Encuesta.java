@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cr.ac.una.encuestas.entidades;
+package cr.ac.una.encuestas.entidades.logic;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import cr.ac.una.util.conversion.xml.SqlDateAdapter;
@@ -14,16 +15,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-/**
- *
- * @author jeffr
- */
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @XmlType
-@DatabaseTable(tableName = "RespuestasSeleccion")
-public class RespuestaSeleccion {
+@DatabaseTable(tableName = "Encuestas")
+public class Encuesta {
 
     @Getter
     @Setter
@@ -32,11 +31,16 @@ public class RespuestaSeleccion {
 
     @Getter
     @Setter
-    @DatabaseField(foreign = true, columnName = "pregunta_id")
-    private Pregunta pregunta;
+    @DatabaseField
+    private Date fecha_creacion;
 
     @Getter
     @Setter
     @DatabaseField
-    private String texto_respuesta;
+    private Date fecha_inicio_aplicacion;
+
+    @Getter
+    @Setter
+    @DatabaseField
+    private Date fecha_fin_aplicacion;
 }
