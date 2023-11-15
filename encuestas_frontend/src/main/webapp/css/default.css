@@ -1,0 +1,117 @@
+
+@import "https://fonts.googleapis.com/css?family=Lato";
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+
+body {
+}
+
+#wrapper {
+    font-family: Lato, sans-serif;
+    font-size: 12pt;
+}
+
+#wrapper header {
+    background-color: darkolivegreen;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 8px 8px 8px;
+}
+
+#wrapper header h1 {
+    font-size: 16pt;
+    margin: 4px;
+    margin-left: 16px;
+}
+
+#wrapper h2 {
+    color: yellow;
+    font-size: 14pt;
+    margin: 4px;
+    margin-left: 16px;
+}
+
+header nav {
+    margin: 4px;
+    margin-top: 16px;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+header nav li {
+    border-radius: 4px;
+    float: left;
+    margin: 0px 4px 0px 4px;
+    padding: 8px 4px 8px 4px;
+}
+
+header nav li a {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    width: 180px;
+}
+
+header nav li:visited,
+header nav li a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+header nav li:hover {
+    background-color: #A6B888;
+    color: white;
+}
+
+header nav .active {
+    background-color: #334514;
+    color: white;
+}
+
+#wrapper #contents {
+    background-image: url('./imagenes/estudiantes.png');
+    background-position: top right;
+    background-repeat: no-repeat;
+    height: 240px;
+}
+
+#wrapper #contents form input,
+#wrapper #contents form button {
+    font: inherit;
+}
+
+#wrapper #contents form input[type=text] {
+    vertical-align: baseline;
+}
+
+#wrapper #contents .info {
+    border: 2px solid darkolivegreen;
+    border-radius: 16px;
+    margin: 8px 8px 8px 24px;
+    padding: 8px 16px 8px 16px;
+    width: 720px;
+}
+
+#wrapper #contents .tablaDatos {
+    border: none;
+    width: 360px;
+}
+
+.col1 {
+    padding-right: 24px;
+    text-align: right;
+}
+
+.col2 {
+    background-color: #e5e5e5;
+    font-weight: bold;
+    padding: 4px 16px 4px 16px;
+}
+
+#wrapper #contents .mensajeError {
+    color: #cc0000;
+}

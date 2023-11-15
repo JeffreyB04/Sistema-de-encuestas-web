@@ -1,0 +1,55 @@
+
+.tablaEstudiantes {
+    border-collapse: collapse;
+    font-size: 10pt;
+    padding: 8px;
+    width: 100%;
+}
+
+.tablaEstudiantes thead {
+    margin-bottom: 16px;
+}
+
+.tablaEstudiantes thead tr {
+    background-color: darkolivegreen;
+    color: white;
+    display: block;
+    width: calc(100% + 0px);
+}
+
+.c1 {
+    width: 90px;
+}
+.c2 {
+    width: 120px;
+}
+
+.tablaEstudiantes tbody {
+    display: block;
+    height: 360px;
+    overflow: auto;
+    width: 100%;
+}
+
+.tablaEstudiantes tbody tr {
+    width: 100%;
+}
+
+.tablaEstudiantes th {
+    padding-left: 16px;
+    text-align: center;
+}
+
+.tablaEstudiantes th,
+.tablaEstudiantes td {
+    padding: 2px 12px 2px 12px;
+    border-right: 1px dotted darkolivegreen;
+}
+
+.tablaEstudiantes tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+.tablaEstudiantes tbody tr:nth-child(even) {
+    background-color: #d5dec5;
+}

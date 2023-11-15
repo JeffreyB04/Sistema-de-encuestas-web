@@ -1,0 +1,5 @@
+cr\ac\una\estudiantes\resources\JakartaEE8Resource.class
+cr\ac\una\estudiantes\JakartaRestConfiguration.class
+cr\ac\una\servicios\ServicioEstudiantes.class
+cr\ac\una\servicios\ServletBorrado.class
+cr\ac\una\servicios\ServletConsulta.class
