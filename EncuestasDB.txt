@@ -3,17 +3,7 @@ DROP DATABASE IF EXISTS EncuestasDB;
 CREATE DATABASE EncuestasDB;
 USE EncuestasDB;
 
-CREATE TABLE Usuario(
-cedula VARCHAR(9) PRIMARY KEY,
 
-respuesta_valoracion_id INT,
-respuesta_seleccion_id INT,
-respuesta_abierta_id INT,
-
-FOREIGN KEY (respuesta_valoracion_id) REFERENCES RespuestasValoracion(id),
-FOREIGN KEY (respuesta_seleccion_id) REFERENCES RespuestasSeleccion(id),
-FOREIGN KEY (respuesta_abierta_id) REFERENCES RespuestasAbierta(id)
-);
 
 -- Crear tabla para las encuestas
 CREATE TABLE Encuestas (
@@ -56,6 +46,17 @@ CREATE TABLE RespuestasAbierta (
     FOREIGN KEY (pregunta_id) REFERENCES Preguntas(id)
 );
 
+CREATE TABLE Usuario(
+cedula VARCHAR(9) PRIMARY KEY,
+
+respuesta_valoracion_id INT,
+respuesta_seleccion_id INT,
+respuesta_abierta_id INT,
+
+FOREIGN KEY (respuesta_valoracion_id) REFERENCES RespuestasValoracion(id),
+FOREIGN KEY (respuesta_seleccion_id) REFERENCES RespuestasSeleccion(id),
+FOREIGN KEY (respuesta_abierta_id) REFERENCES RespuestasAbierta(id)
+);
 
 -- Pregunta de selección única
 INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
