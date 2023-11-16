@@ -3,8 +3,6 @@ DROP DATABASE IF EXISTS EncuestasDB;
 CREATE DATABASE EncuestasDB;
 USE EncuestasDB;
 
-
-
 -- Crear tabla para las encuestas
 CREATE TABLE Encuestas (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -57,6 +55,14 @@ FOREIGN KEY (respuesta_valoracion_id) REFERENCES RespuestasValoracion(id),
 FOREIGN KEY (respuesta_seleccion_id) REFERENCES RespuestasSeleccion(id),
 FOREIGN KEY (respuesta_abierta_id) REFERENCES RespuestasAbierta(id)
 );
+
+-- Insertar datos en la tabla Encuestas
+INSERT INTO Encuestas (fecha_creacion, fecha_inicio_aplicacion, fecha_fin_aplicacion)
+VALUES ('2023-11-16', '2023-11-17', '2023-11-30');
+
+-- Obtener el ID de la última encuesta insertada
+SET @encuesta_id = LAST_INSERT_ID();
+
 
 -- Pregunta de selección única
 INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
