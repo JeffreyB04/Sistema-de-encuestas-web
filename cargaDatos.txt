@@ -1,0 +1,45 @@
+-- Insertar datos en la tabla Encuestas
+INSERT INTO Encuestas (fecha_creacion, fecha_inicio_aplicacion, fecha_fin_aplicacion)
+VALUES ('2023-11-16', '2023-11-17', '2023-11-30');
+
+-- Obtener el ID de la última encuesta insertada
+SET @encuesta_id = LAST_INSERT_ID();
+-- Pregunta de selección única
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_unica', '¿Cuál es tu color favorito?');
+
+-- Pregunta de selección múltiple
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_multiple', '¿Cuáles de los siguientes deportes practicas?');
+
+-- Pregunta de valoración cualitativa
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'valoracion_cualitativa', '¿Cómo calificarías la calidad de nuestro servicio?');
+
+-- Pregunta de respuesta abierta
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'respuesta_abierta', '¿Cuál es tu opinión sobre nuestro producto?');
+
+-- Pregunta de selección única
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_unica', '¿Cuál es tu género?');
+
+-- Pregunta de selección múltiple
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_multiple', '¿Cuáles de los siguientes alimentos te gustan?');
+
+-- Pregunta de valoración cualitativa
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'valoracion_cualitativa', '¿Cómo calificarías la limpieza de nuestras instalaciones?');
+
+-- Pregunta de respuesta abierta
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'respuesta_abierta', '¿Tienes algún comentario adicional sobre nuestros servicios?');
+
+-- Pregunta de selección única
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_unica', '¿Cuál es tu nivel de satisfacción con nuestro producto?');
+
+-- Pregunta de selección múltiple
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_multiple', '¿Cuáles de las siguientes actividades disfrutas haciendo en tu tiempo libre?');

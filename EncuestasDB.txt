@@ -1,0 +1,107 @@
+-- Eliminar la base de datos si existe
+DROP DATABASE IF EXISTS EncuestasDB;
+
+-- Crear la base de datos para encuestas
+CREATE DATABASE EncuestasDB;
+USE EncuestasDB;
+
+-- Crear tabla para las encuestas
+CREATE TABLE Encuestas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(10),
+    fecha_creacion DATE,
+    fecha_inicio_aplicacion DATE,
+    fecha_fin_aplicacion DATE
+);
+
+-- Crear tabla para las preguntas
+CREATE TABLE Preguntas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    encuesta_id INT,
+    tipo_pregunta VARCHAR(100), -- Cambiado a VARCHAR
+    enunciado TEXT,
+    FOREIGN KEY (encuesta_id) REFERENCES Encuestas(id)
+);
+
+-- Crear tabla para las respuestas de preguntas de valoración cualitativa
+CREATE TABLE RespuestasValoracion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pregunta_id INT,
+    calificacion VARCHAR(20), -- Cambiado a VARCHAR
+    FOREIGN KEY (pregunta_id) REFERENCES Preguntas(id)
+);
+
+-- Crear tabla para las respuestas de preguntas de selección única y múltiple
+CREATE TABLE RespuestasSeleccion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pregunta_id INT,
+    texto_respuesta TEXT,
+    FOREIGN KEY (pregunta_id) REFERENCES Preguntas(id)
+);
+
+-- Crear tabla para las respuestas de preguntas de respuesta abierta
+CREATE TABLE RespuestasAbierta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pregunta_id INT,
+    texto_respuesta TEXT,
+    FOREIGN KEY (pregunta_id) REFERENCES Preguntas(id)
+);
+
+CREATE TABLE Usuario (
+    cedula VARCHAR(9) PRIMARY KEY,
+    encuesta_id INT,
+    respuesta_valoracion_id INT,
+    respuesta_seleccion_id INT,
+    respuesta_abierta_id INT,
+    FOREIGN KEY (encuesta_id) REFERENCES Encuestas(id),
+    FOREIGN KEY (respuesta_valoracion_id) REFERENCES RespuestasValoracion(id),
+    FOREIGN KEY (respuesta_seleccion_id) REFERENCES RespuestasSeleccion(id),
+    FOREIGN KEY (respuesta_abierta_id) REFERENCES RespuestasAbierta(id)
+);
+
+-- Insertar datos en la tabla Encuestas
+INSERT INTO Encuestas (nombre, fecha_creacion, fecha_inicio_aplicacion, fecha_fin_aplicacion)
+VALUES ('Encuesta', '2023-11-16', '2023-11-17', '2023-11-30');
+
+-- Obtener el ID de la última encuesta insertada
+SET @encuesta_id = LAST_INSERT_ID();
+
+-- Pregunta de selección única
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_unica', '¿Cuál es tu color favorito?');
+
+-- Pregunta de selección múltiple
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_multiple', '¿Cuáles de los siguientes deportes practicas?');
+
+-- Pregunta de valoración cualitativa
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'valoracion_cualitativa', '¿Cómo calificarías la calidad de nuestro servicio?');
+
+-- Pregunta de respuesta abierta
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'respuesta_abierta', '¿Cuál es tu opinión sobre nuestro producto?');
+
+-- Pregunta de selección única
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_unica', '¿Cuál es tu género?');
+
+-- Pregunta de selección múltiple
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_multiple', '¿Cuáles de los siguientes alimentos te gustan?');
+
+-- Pregunta de valoración cualitativa
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'valoracion_cualitativa', '¿Cómo calificarías la limpieza de nuestras instalaciones?');
+
+-- Pregunta de respuesta abierta
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'respuesta_abierta', '¿Tienes algún comentario adicional sobre nuestros servicios?');
+
+-- Pregunta de selección única
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_unica', '¿Cuál es tu nivel de satisfacción con nuestro producto?');
+
+-- Pregunta de selección múltiple
+INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
+VALUES (@encuesta_id, 'seleccion_multiple', '¿Cuáles de las siguientes actividades disfrutas haciendo en tu tiempo libre?');
