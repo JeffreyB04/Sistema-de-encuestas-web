@@ -1,4 +1,6 @@
+-- Eliminar la base de datos si existe
 DROP DATABASE IF EXISTS EncuestasDB;
+
 -- Crear la base de datos para encuestas
 CREATE DATABASE EncuestasDB;
 USE EncuestasDB;
@@ -6,6 +8,7 @@ USE EncuestasDB;
 -- Crear tabla para las encuestas
 CREATE TABLE Encuestas (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(10),
     fecha_creacion DATE,
     fecha_inicio_aplicacion DATE,
     fecha_fin_aplicacion DATE
@@ -15,7 +18,7 @@ CREATE TABLE Encuestas (
 CREATE TABLE Preguntas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     encuesta_id INT,
-    tipo_pregunta ENUM('seleccion_unica', 'seleccion_multiple', 'valoracion_cualitativa', 'respuesta_abierta'),
+    tipo_pregunta VARCHAR(100), -- Cambiado a VARCHAR
     enunciado TEXT,
     FOREIGN KEY (encuesta_id) REFERENCES Encuestas(id)
 );
@@ -24,7 +27,7 @@ CREATE TABLE Preguntas (
 CREATE TABLE RespuestasValoracion (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pregunta_id INT,
-    calificacion ENUM('Muy malo', 'Malo', 'Regular', 'Bueno', 'Muy bueno'),
+    calificacion VARCHAR(20), -- Cambiado a VARCHAR
     FOREIGN KEY (pregunta_id) REFERENCES Preguntas(id)
 );
 
@@ -44,25 +47,24 @@ CREATE TABLE RespuestasAbierta (
     FOREIGN KEY (pregunta_id) REFERENCES Preguntas(id)
 );
 
-CREATE TABLE Usuario(
-cedula VARCHAR(9) PRIMARY KEY,
-
-respuesta_valoracion_id INT,
-respuesta_seleccion_id INT,
-respuesta_abierta_id INT,
-
-FOREIGN KEY (respuesta_valoracion_id) REFERENCES RespuestasValoracion(id),
-FOREIGN KEY (respuesta_seleccion_id) REFERENCES RespuestasSeleccion(id),
-FOREIGN KEY (respuesta_abierta_id) REFERENCES RespuestasAbierta(id)
+CREATE TABLE Usuario (
+    cedula VARCHAR(9) PRIMARY KEY,
+    encuesta_id INT,
+    respuesta_valoracion_id INT,
+    respuesta_seleccion_id INT,
+    respuesta_abierta_id INT,
+    FOREIGN KEY (encuesta_id) REFERENCES Encuestas(id),
+    FOREIGN KEY (respuesta_valoracion_id) REFERENCES RespuestasValoracion(id),
+    FOREIGN KEY (respuesta_seleccion_id) REFERENCES RespuestasSeleccion(id),
+    FOREIGN KEY (respuesta_abierta_id) REFERENCES RespuestasAbierta(id)
 );
 
 -- Insertar datos en la tabla Encuestas
-INSERT INTO Encuestas (fecha_creacion, fecha_inicio_aplicacion, fecha_fin_aplicacion)
-VALUES ('2023-11-16', '2023-11-17', '2023-11-30');
+INSERT INTO Encuestas (nombre, fecha_creacion, fecha_inicio_aplicacion, fecha_fin_aplicacion)
+VALUES ('Encuesta', '2023-11-16', '2023-11-17', '2023-11-30');
 
 -- Obtener el ID de la última encuesta insertada
 SET @encuesta_id = LAST_INSERT_ID();
-
 
 -- Pregunta de selección única
 INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
@@ -103,4 +105,3 @@ VALUES (@encuesta_id, 'seleccion_unica', '¿Cuál es tu nivel de satisfacción c
 -- Pregunta de selección múltiple
 INSERT INTO Preguntas (encuesta_id, tipo_pregunta, enunciado)
 VALUES (@encuesta_id, 'seleccion_multiple', '¿Cuáles de las siguientes actividades disfrutas haciendo en tu tiempo libre?');
-
